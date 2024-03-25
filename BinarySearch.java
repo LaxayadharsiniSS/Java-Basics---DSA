@@ -94,4 +94,11 @@ import java.util.*;
  * Elements: [8,9,10,11]
  * 
  * Output: Key found at: 3
+ * --------------------------------
+ * Test Case: 3
+ * Size: 4
+ * Target: 11
+ * Elements: [8,9,10,12]
+ * 
+ * Output: Key not found!
  */
