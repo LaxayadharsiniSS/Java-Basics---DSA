@@ -27,11 +27,8 @@ class FindingPath{
             }
             //at this point of time, any node that has either left or right child / or no child would have been explored....................
             // when child node is reached and the destination node is not still found, pop the child node from stk to follow a different path
-            if(node.left==null && node.right==null && !isFound){
-                stk.pop();
-            }
             //when any node that has either left or right child or both is explored and the destination node is not still found, pop their child
-            if((node.left!=null || node.right!=null) && !isFound){
+            if(!isFound){
                 stk.pop();
             }
             //3rd & 4th if blocks are independent and can be executed in either orders.
