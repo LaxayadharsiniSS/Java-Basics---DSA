@@ -13,16 +13,17 @@ class FindingPath{
     static boolean isFound; //maintain this variable to track if the node is found or not
 
     static void DFS(Node node, Node dest){
-        stk.push(node);
         if(node == dest) isFound=true;
         if(node!=null){
             if(node.left!=null && !isFound) 
             {
+                stk.push(node.left);
                 DFS(node.left, dest);
             }
             // impose isFound condition here as well to stop the right search if the destination node is found (because recursion ended at line 21 will resume here instead the main if block)
             if(node.right!=null && !isFound)
             {
+                stk.push(node.right);
                 DFS(node.right, dest);
             }
             //at this point of time, any node that has either left or right child / or no child would have been explored....................
@@ -44,6 +45,7 @@ class FindingPath{
     }
 
     public static void main(String args[]){
+
         Node root = new Node(2);
         Node temp = root;
         temp.left = new Node(4);
@@ -65,13 +67,22 @@ class FindingPath{
         //print(root);
         
         stk = new Stack<>();
+        stk.push(root);
         DFS(root, temp2.left);
+        String pathToSrc = "";
+        while(stk.size()!=1){ //we don't want to print root node twice in the output and hence the last node in stack (i.e, the root node) is not appended in string
+            pathToSrc = pathToSrc+" "+stk.pop().val; //since we go towards root - we merge in the same order we have in stack
+        }      
 
-        String path = "";
+        isFound=false;
+        stk = new Stack<>();
+        stk.push(root);
+        DFS(root, temp3.right);
+        String pathToDest ="";
         while(!stk.isEmpty()){
-            path = stk.pop().val +" "+path;
+            pathToDest = stk.pop().val +" "+pathToDest;
         }
-        System.out.println(path);
+        System.out.println(pathToSrc+", "+pathToDest);
     }
 }
 
