@@ -10,6 +10,7 @@ class Node{
 class FindingPath{
 
     static Stack<Node> stk; //stk is to store the nodes as we traverse from root to the destination node
+    static Stack<String> dir;
     static boolean isFound; //maintain this variable to track if the node is found or not
 
     static void DFS(Node node, Node dest){
@@ -18,12 +19,14 @@ class FindingPath{
             if(node.left!=null && !isFound) 
             {
                 stk.push(node.left);
+                dir.push("L");
                 DFS(node.left, dest);
             }
             // impose isFound condition here as well to stop the right search if the destination node is found (because recursion ended at line 21 will resume here instead the main if block)
             if(node.right!=null && !isFound)
             {
                 stk.push(node.right);
+                dir.push("R");
                 DFS(node.right, dest);
             }
             //at this point of time, any node that has either left or right child / or no child would have been explored....................
@@ -31,6 +34,7 @@ class FindingPath{
             //when any node that has either left or right child or both is explored and the destination node is not still found, pop their child
             if(!isFound){
                 stk.pop();
+                dir.pop();
             }
             //3rd & 4th if blocks are independent and can be executed in either orders.
         }
@@ -67,22 +71,31 @@ class FindingPath{
         //print(root);
         
         stk = new Stack<>();
+        dir = new Stack<>();
         stk.push(root);
         DFS(root, temp2.left);
         String pathToSrc = "";
+        String dirToSrc="";
         while(stk.size()!=1){ //we don't want to print root node twice in the output and hence the last node in stack (i.e, the root node) is not appended in string
             pathToSrc = pathToSrc+" "+stk.pop().val; //since we go towards root - we merge in the same order we have in stack
+            dirToSrc = dirToSrc+" "+"U";
         }      
 
         isFound=false;
         stk = new Stack<>();
+        dir = new Stack<>();
         stk.push(root);
-        DFS(root, temp3.right);
+        DFS(root, temp4.left);
         String pathToDest ="";
+        String dirToDest=dir.pop();
         while(!stk.isEmpty()){
             pathToDest = stk.pop().val +" "+pathToDest;
         }
-        System.out.println(pathToSrc+", "+pathToDest);
+        while (!dir.isEmpty()) {   
+            dirToDest = dir.pop()+" "+dirToDest;
+        }
+        System.out.println(dirToSrc+"  "+dirToDest);
+        System.out.println(pathToSrc+"  "+pathToDest);
     }
 }
 
