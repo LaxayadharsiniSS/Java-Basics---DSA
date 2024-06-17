@@ -8,40 +8,36 @@ class Node{
     }
 }
 class FindingPath{
+
     static Stack<Node> stk; //stk is to store the nodes as we traverse from root to the destination node
     static boolean isFound; //maintain this variable to track if the node is found or not
-    static void DFS(Node node, Node dest){ 
+
+    static void DFS(Node node, Node dest){
         stk.push(node);
         if(node == dest) isFound=true;
-        System.out.println(isFound+" "+node.val);
         if(node!=null){
             if(node.left!=null && !isFound) 
             {
-                System.out.println("1..Exec...: "+node.left.val+" "+dest.val);
                 DFS(node.left, dest);
             }
             // impose isFound condition here as well to stop the right search if the destination node is found (because recursion ended at line 21 will resume here instead the main if block)
             if(node.right!=null && !isFound)
             {
-                System.out.println("2..Exec...: "+node.right.val+" "+dest.val);
                 DFS(node.right, dest);
             }
             //at this point of time, any node that has either left or right child / or no child would have been explored....................
-
             // when child node is reached and the destination node is not still found, pop the child node from stk to follow a different path
             if(node.left==null && node.right==null && !isFound){
-                System.out.println("peek(): "+node.val);
                 stk.pop();
             }
             //when any node that has either left or right child or both is explored and the destination node is not still found, pop their child
             if((node.left!=null || node.right!=null) && !isFound){
-                System.out.println("3..Exec...: "+node.val+" "+stk.peek().val);
                 stk.pop();
-                System.out.println("Peek: "+stk.peek().val);
             }
             //3rd & 4th if blocks are independent and can be executed in either orders.
         }
     }
+
     static void print(Node root){ //print method to print the tree in an inOrder traversal
         if(root!=null){
             System.out.println(root.val);
@@ -49,6 +45,7 @@ class FindingPath{
             print(root.right);
         }
     }
+
     public static void main(String args[]){
         Node root = new Node(2);
         Node temp = root;
@@ -69,8 +66,10 @@ class FindingPath{
         temp4.left = new Node(10);
         temp4.right = new Node(11);
         //print(root);
+        
         stk = new Stack<>();
         DFS(root, temp2.left);
+
         String path = "";
         while(!stk.isEmpty()){
             path = stk.pop().val +" "+path;
