@@ -113,4 +113,12 @@ Use DFS to traverse in depth
 
 Time Complexity: O(V+E) where V-> number of vertices, E-> number of edges
 Space Complexity: O(V) where V is the number of vertices in the tree
+
+In order to print directions:
+root to srcNode: have "U" as we move up towards the root for the number of nodes passing from root to source
+root to destNode: have the directions as 'L' or 'R'
+
+merge them in the result for printing path from a source on the left subtree and source on the right subtree
+
+If both source and destination lies in the same side of the tree, we should find the common root between them before this
 */
