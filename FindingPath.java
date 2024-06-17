@@ -14,7 +14,7 @@ class FindingPath{
         stk.push(node);
         if(node == dest) isFound=true;
         System.out.println(isFound+" "+node.val);
-        if(node!=null && !isFound){
+        if(node!=null){
             if(node.left!=null && !isFound) 
             {
                 System.out.println("1..Exec...: "+node.left.val+" "+dest.val);
@@ -36,14 +36,10 @@ class FindingPath{
             //when any node that has either left or right child or both is explored and the destination node is not still found, pop their child
             if((node.left!=null || node.right!=null) && !isFound){
                 System.out.println("3..Exec...: "+node.val+" "+stk.peek().val);
-                if(stk.peek() == node.right){
-                    System.out.println("Executing....");
-                    stk.pop();
-                }
                 stk.pop();
                 System.out.println("Peek: "+stk.peek().val);
             }
-            //3rd & 4th if blocks are independent 
+            //3rd & 4th if blocks are independent and can be executed in either orders.
         }
     }
     static void print(Node root){ //print method to print the tree in an inOrder traversal
